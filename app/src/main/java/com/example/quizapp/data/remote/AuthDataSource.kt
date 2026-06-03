@@ -32,6 +32,8 @@ class AuthDataSource @Inject constructor(
             .document(user.id)
             .set(user.toMap())
             .await()
+
+        return user
     }
 
     suspend fun signOut(){
