@@ -21,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -60,7 +61,14 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             Spacer(Modifier.height(20.dp))
             Card(
                 modifier = Modifier.fillMaxWidth()
-                    .padding(start = 20.dp, end = 20.dp),
+                    .padding(start = 20.dp, end = 20.dp)
+                    .shadow(
+                        elevation = 4.dp,
+                        shape = RoundedCornerShape(10.dp),
+                        clip = false,
+                        ambientColor = TextTertiary,
+                        spotColor = TextTertiary
+                    ),
                 shape = RoundedCornerShape(size = 10.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = Surface
