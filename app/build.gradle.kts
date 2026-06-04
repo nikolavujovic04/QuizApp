@@ -3,17 +3,18 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.kotlin.compose)
     id("com.google.gms.google-services")
 }
 
 android {
     namespace = "com.example.quizapp"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.quizapp"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -39,13 +40,8 @@ android {
         jvmTarget = "11"
     }
 
-    // === OVDE STAVLJAŠ (ODMAH ISPOD KOTLIN_OPTIONS, PRE ZATVARANJA ANDROID BLOKA) ===
     buildFeatures {
         compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.15"
     }
 }
 
@@ -69,8 +65,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
 
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.51")
-    kapt("com.google.dagger:hilt-compiler:2.51")
+    implementation(libs.hilt.android) // Povezuje se na verziju 2.55 iz .toml fajla
+    kapt("com.google.dagger:hilt-compiler:2.55") // Kapt kompajler prati istu verziju
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
