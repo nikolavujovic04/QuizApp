@@ -11,7 +11,7 @@ import com.example.quizapp.ui.auth.LoginScreen
 fun NavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Home.route
+        startDestination = Screen.Login.route
     ){
         composable(Screen.Login.route){
             LoginScreen(navController = navController)

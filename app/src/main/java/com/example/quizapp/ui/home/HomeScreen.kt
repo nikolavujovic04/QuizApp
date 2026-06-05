@@ -1,0 +1,118 @@
+package com.example.quizapp.ui.home
+
+import android.widget.Space
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.quizapp.ui.theme.Background
+import com.example.quizapp.ui.theme.OrangePrimary
+import com.example.quizapp.ui.theme.SurfaceVariant
+import com.example.quizapp.ui.theme.TextTertiary
+import com.example.quizapp.ui.theme.Typography
+
+@Composable
+fun HomeScreen(modifier: Modifier = Modifier) {
+    Column(
+        modifier = Modifier
+            .background(color = Background)
+            .fillMaxSize()
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth()
+                .padding(start = 20.dp, top = 40.dp, end = 20.dp)
+        ) {
+            Text(
+                text = "Ready to play, Alex?",
+                style = Typography.headlineMedium
+            )
+            Text(
+                text = "Your current strak is 5 days",
+                style = Typography.bodyMedium,
+                color = TextTertiary
+            )
+            Spacer(Modifier.height(20.dp))
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(size = 24.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = OrangePrimary
+                )
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    Text(
+                        text = "DAILY CHALLENGE",
+                        color = Color.White,
+                        style = Typography.bodyLarge
+                    )
+                    Spacer(Modifier.height(10.dp))
+                    Text(
+                        text = "Science & Space Trivia",
+                        color = Color.White,
+                        style = Typography.headlineMedium
+                    )
+                    Spacer(Modifier.height(16.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "+500 XP Points",
+                            color = SurfaceVariant,
+                            style = Typography.bodyMedium
+                        )
+                        Spacer(Modifier.weight(1f))
+                        Button(
+                            modifier = Modifier
+                                .padding(6.dp)
+                                .height(34.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color.White,
+                                contentColor = OrangePrimary
+                            ),
+                            onClick = {}
+                        ) {
+                            Text(
+                                text = "Play now"
+                            )
+                        }
+                    }
+                }
+
+            }
+            Spacer(Modifier.height(30.dp))
+            Text(
+                text = "Last played",
+                style = Typography.bodyLarge
+            )
+        }
+    }
+
+}
+
+@Preview(showSystemUi = true)
+@Composable
+private fun HomeScreenPrev() {
+    HomeScreen()
+}
