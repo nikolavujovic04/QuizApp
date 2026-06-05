@@ -13,6 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.navigation.compose.rememberNavController
+import com.example.quizapp.navigation.NavGraph
+import com.example.quizapp.ui.theme.QuizAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -20,20 +23,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Scaffold (modifier = Modifier.fillMaxSize()) { innerPadding ->
-                Greeting(
-                    name = "Nikola",
-                    modifier = Modifier.padding(innerPadding)
-                )
+            QuizAppTheme {
+                val navController = rememberNavController()
+                NavGraph(navController = navController)
             }
         }
     }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Zdravo $name! Compose i Hilt rade!",
-        modifier = modifier
-    )
 }

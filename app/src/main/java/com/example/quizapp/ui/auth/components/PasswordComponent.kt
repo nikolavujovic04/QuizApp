@@ -18,14 +18,13 @@ import com.example.quizapp.ui.theme.OrangePrimary
 import com.example.quizapp.ui.theme.TextTertiary
 
 @Composable
-fun PasswordComponent(modifier: Modifier = Modifier) {
-    var password by remember { mutableStateOf("") }
-
+fun PasswordComponent(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier) {
     OutlinedTextField(
-        value = password,
-        onValueChange = { text ->
-            password = text
-        },
+        value = value,
+        onValueChange = onValueChange,
         label = { Text("Password") },
         placeholder = {Text("Password")},
         modifier = Modifier.fillMaxWidth(),

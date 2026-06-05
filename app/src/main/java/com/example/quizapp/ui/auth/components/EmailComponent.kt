@@ -19,13 +19,13 @@ import com.example.quizapp.ui.theme.OrangePrimary
 import com.example.quizapp.ui.theme.TextTertiary
 
 @Composable
-fun EmailComponent(modifier: Modifier = Modifier) {
-    var email by remember { mutableStateOf("") }
+fun EmailComponent(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier) {
     OutlinedTextField(
-        value = email,
-        onValueChange = { text ->
-            email = text
-        },
+        value = value,
+        onValueChange = onValueChange,
         label = { Text("Email Address") },
         placeholder = {Text("Email address")},
         modifier = Modifier.fillMaxWidth(),
@@ -46,5 +46,6 @@ fun EmailComponent(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun EmailComponentPrev() {
-    EmailComponent()
+    EmailComponent(value = "",
+        onValueChange = {})
 }

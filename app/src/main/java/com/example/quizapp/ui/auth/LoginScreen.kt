@@ -16,15 +16,27 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.quizapp.navigation.Screen
 import com.example.quizapp.ui.auth.components.EmailComponent
 import com.example.quizapp.ui.auth.components.GoogleSignInButton
 import com.example.quizapp.ui.auth.components.PasswordComponent
@@ -33,9 +45,32 @@ import com.example.quizapp.ui.theme.OrangePrimary
 import com.example.quizapp.ui.theme.Surface
 import com.example.quizapp.ui.theme.TextTertiary
 import com.example.quizapp.ui.theme.Typography
+import com.example.quizapp.ui.viewModel.AuthViewModel
+import com.example.quizapp.utils.Resource
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun LoginScreen(
+    navController: NavHostController,
+    viewModel: AuthViewModel = hiltViewModel(),
+    modifier: Modifier = Modifier
+) {
+    var email by remember {mutableStateOf("")}
+    var password by remember { mutableStateOf("") }
+    val signInState by viewModel.signInState.collectAsState()
+    LaunchedEffect(
+        signInState
+    ) {
+        when(signInState){
+            is Resource.Success -> {
+                navController.navigate(Screen.Home.route){
+                    popUpTo(Screen.Login.route){ inclusive = true }
+                }
+            }
+            is Resource.Error -> {}
+            else -> {}
+        }
+    }
+
     Column(
         modifier = Modifier
             .background(color = Background)
@@ -81,9 +116,14 @@ fun LoginScreen(modifier: Modifier = Modifier) {
                         .padding(24.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    EmailComponent()
+                    EmailComponent(
+                        value = email,
+                        onValueChange = {email = it}
+                    )
                     Spacer(Modifier.height(10.dp))
-                    PasswordComponent()
+                    PasswordComponent(
+                        value = password,
+                        onValueChange = {password = it})
                     Spacer(Modifier.height(6.dp))
                     Text(modifier = Modifier.align(Alignment.End),
                         text = "Forgot Password?",
@@ -95,9 +135,26 @@ fun LoginScreen(modifier: Modifier = Modifier) {
                     colors = ButtonDefaults.buttonColors(
                         containerColor = OrangePrimary
                     ),
-                    onClick = {},
+                    onClick = {
+                        viewModel.signIn(email, password)
+                    },
                 ) {
-                        Text(text = "Let's play")
+                        if(signInState is Resource.Loading){
+                            CircularProgressIndicator(
+                                modifier = Modifier.height(20.dp),
+                                color = Color.White
+                            )
+                        }else{
+                            Text(text = "Let's play")
+                        }
+                    }
+                    if(signInState is Resource.Error){
+                        Text(
+                            text = (signInState as Resource.Error).message,
+                            color = Color.Red,
+                            style = Typography.bodySmall
+                        )
+
                     }
                     Spacer(Modifier.height(20.dp))
                     Row(
@@ -137,5 +194,5 @@ fun LoginScreen(modifier: Modifier = Modifier) {
 @Preview(showSystemUi = true)
 @Composable
 private fun LoginScreenPreview() {
-    LoginScreen()
+    LoginScreen(navController = rememberNavController())
 }

@@ -10,9 +10,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewModel(
+class AuthViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ): ViewModel(){
     private val _signInState = MutableStateFlow<Resource<User>>(Resource.Loading)
