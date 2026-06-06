@@ -4,16 +4,20 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.quizapp.ui.auth.LoginScreen
-import com.example.quizapp.ui.auth.RegisterScreen
-import com.example.quizapp.ui.home.HomeScreen
+import com.example.quizapp.ui.screens.auth.LoginScreen
+import com.example.quizapp.ui.screens.auth.RegisterScreen
+import com.example.quizapp.ui.screens.home.HomeScreen
+import com.example.quizapp.ui.screens.splash.SplashScreen
 
 @Composable
 fun NavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Login.route
+        startDestination = Screen.Splash.route
     ){
+        composable(Screen.Splash.route){
+            SplashScreen(navController = navController)
+        }
         composable(Screen.Login.route){
             LoginScreen(navController = navController)
         }

@@ -39,7 +39,7 @@ class AuthRepositoryImpl @Inject constructor(
         authDataSource.signOut()
     }
 
-    override suspend fun isLoggedIn(): Boolean {
+    override fun isLoggedIn(): Boolean {
         return authDataSource.isLoggedIn()
     }
 

@@ -53,7 +53,7 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    suspend fun isLoggedIn(): Boolean{
+    fun isLoggedIn(): Boolean{
         return authRepository.isLoggedIn()
     }
 

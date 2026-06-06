@@ -1,4 +1,4 @@
-package com.example.quizapp.ui.home
+package com.example.quizapp.ui.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -15,11 +15,14 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.quizapp.ui.theme.Background
@@ -27,12 +30,26 @@ import com.example.quizapp.ui.theme.OrangePrimary
 import com.example.quizapp.ui.theme.SurfaceVariant
 import com.example.quizapp.ui.theme.TextTertiary
 import com.example.quizapp.ui.theme.Typography
+import com.example.quizapp.ui.viewModel.HomeViewModel
+import com.example.quizapp.utils.Resource
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController,
+    viewModel: HomeViewModel = hiltViewModel()
     ) {
+    val userState by viewModel.userState.collectAsState()
+    var displayName: String = ""
+    when(userState){
+        is Resource.Loading -> {}
+        is Resource.Success -> {
+            val user = (userState as Resource.Success).data
+            displayName = user.displayName
+        }
+        is Resource.Error -> { displayName = "Unknown" }
+        else -> {}
+    }
     Column(
         modifier = Modifier
             .background(color = Background)
@@ -43,7 +60,7 @@ fun HomeScreen(
                 .padding(start = 20.dp, top = 40.dp, end = 20.dp)
         ) {
             Text(
-                text = "Ready to play, Alex?",
+                text = "Ready to play ${displayName}",
                 style = Typography.headlineMedium
             )
             Text(

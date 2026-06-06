@@ -40,7 +40,7 @@ class AuthDataSource @Inject constructor(
         auth.signOut()
     }
 
-    suspend fun isLoggedIn(): Boolean{
+    fun isLoggedIn(): Boolean{
         return auth.currentUser != null
     }
 

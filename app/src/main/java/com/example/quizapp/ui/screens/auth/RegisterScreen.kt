@@ -1,4 +1,4 @@
-package com.example.quizapp.ui.auth
+package com.example.quizapp.ui.screens.auth
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -38,9 +38,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.quizapp.navigation.Screen
-import com.example.quizapp.ui.auth.components.EmailComponent
-import com.example.quizapp.ui.auth.components.GoogleSignInButton
-import com.example.quizapp.ui.auth.components.PasswordComponent
+import com.example.quizapp.ui.screens.auth.components.EmailComponent
+import com.example.quizapp.ui.screens.auth.components.GoogleSignInButton
+import com.example.quizapp.ui.screens.auth.components.PasswordComponent
 import com.example.quizapp.ui.theme.Background
 import com.example.quizapp.ui.theme.OrangePrimary
 import com.example.quizapp.ui.theme.Surface
@@ -139,12 +139,12 @@ fun RegisterScreen(
                     )
                     EmailComponent(
                         value = email,
-                        onValueChange = {email = it}
+                        onValueChange = { email = it }
                     )
                     Spacer(Modifier.height(10.dp))
                     PasswordComponent(
                         value = password,
-                        onValueChange = {password = it})
+                        onValueChange = { password = it })
                     Spacer(Modifier.height(30.dp))
                     Button(
                         modifier = Modifier

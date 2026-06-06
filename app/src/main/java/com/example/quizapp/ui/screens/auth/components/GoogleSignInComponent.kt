@@ -1,4 +1,4 @@
-package com.example.quizapp.ui.auth.components
+package com.example.quizapp.ui.screens.auth.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Spacer

@@ -1,7 +1,5 @@
-package com.example.quizapp.ui.auth
+package com.example.quizapp.ui.screens.auth
 
-import android.graphics.text.LineBreaker
-import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,17 +28,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.quizapp.navigation.Screen
-import com.example.quizapp.ui.auth.components.EmailComponent
-import com.example.quizapp.ui.auth.components.GoogleSignInButton
-import com.example.quizapp.ui.auth.components.PasswordComponent
+import com.example.quizapp.ui.screens.auth.components.EmailComponent
+import com.example.quizapp.ui.screens.auth.components.GoogleSignInButton
+import com.example.quizapp.ui.screens.auth.components.PasswordComponent
 import com.example.quizapp.ui.theme.Background
 import com.example.quizapp.ui.theme.OrangePrimary
 import com.example.quizapp.ui.theme.Surface
@@ -119,12 +115,12 @@ fun LoginScreen(
                 ) {
                     EmailComponent(
                         value = email,
-                        onValueChange = {email = it}
+                        onValueChange = { email = it }
                     )
                     Spacer(Modifier.height(10.dp))
                     PasswordComponent(
                         value = password,
-                        onValueChange = {password = it})
+                        onValueChange = { password = it })
                     Spacer(Modifier.height(6.dp))
                     Text(modifier = Modifier.align(Alignment.End),
                         text = "Forgot Password?",
