@@ -1,11 +1,12 @@
 package com.example.quizapp.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.quizapp.ui.auth.LoginScreen
+import com.example.quizapp.ui.auth.RegisterScreen
+import com.example.quizapp.ui.home.HomeScreen
 
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -17,10 +18,10 @@ fun NavGraph(navController: NavHostController) {
             LoginScreen(navController = navController)
         }
         composable(Screen.Register.route){
-
+            RegisterScreen(navController = navController)
         }
         composable(Screen.Home.route){
-
+            HomeScreen(navController = navController)
         }
     }
 }

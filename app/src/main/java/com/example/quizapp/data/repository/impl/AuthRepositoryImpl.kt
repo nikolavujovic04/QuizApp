@@ -47,4 +47,9 @@ class AuthRepositoryImpl @Inject constructor(
         return authDataSource.getCurrentUserId()
     }
 
+    override suspend fun getCurrentUser(): User? {
+        return authDataSource.getCurrentUser()
+    }
+
+
 }

@@ -1,7 +1,5 @@
 package com.example.quizapp.ui.auth
 
-import android.graphics.text.LineBreaker
-import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,12 +10,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,12 +31,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.LineBreak
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.quizapp.navigation.Screen
 import com.example.quizapp.ui.auth.components.EmailComponent
@@ -50,17 +50,18 @@ import com.example.quizapp.ui.viewModel.AuthViewModel
 import com.example.quizapp.utils.Resource
 
 @Composable
-fun LoginScreen(
-    navController: NavHostController,
-    viewModel: AuthViewModel = hiltViewModel(),
+fun RegisterScreen(
+    navController: NavController,
+    viewModel: AuthViewModel = hiltViewModel()
 ) {
     var email by remember {mutableStateOf("")}
     var password by remember { mutableStateOf("") }
-    val signInState by viewModel.signInState.collectAsState()
+    var displayName by remember { mutableStateOf("") }
+    val signUpState by viewModel.signUpState.collectAsState()
     LaunchedEffect(
-        signInState
+        signUpState
     ) {
-        when(signInState){
+        when(signUpState){
             is Resource.Idle -> {}
             is Resource.Success -> {
                 navController.navigate(Screen.Home.route){
@@ -96,7 +97,8 @@ fun LoginScreen(
             )
             Spacer(Modifier.height(20.dp))
             Card(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(start = 20.dp, end = 20.dp)
                     .shadow(
                         elevation = 4.dp,
@@ -110,13 +112,31 @@ fun LoginScreen(
                     containerColor = Surface
                 ),
 
-            ) {
+                ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(24.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    OutlinedTextField(
+                        value = displayName,
+                        onValueChange = {displayName = it},
+                        label = {Text(text = "Display name")},
+                        placeholder = {Text(text = "Display name")},
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(size = 8.dp),
+
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Email
+                        ),
+
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = OrangePrimary,
+                            focusedLabelColor = OrangePrimary,
+                            unfocusedBorderColor = TextTertiary
+                        )
+                    )
                     EmailComponent(
                         value = email,
                         onValueChange = {email = it}
@@ -125,23 +145,20 @@ fun LoginScreen(
                     PasswordComponent(
                         value = password,
                         onValueChange = {password = it})
-                    Spacer(Modifier.height(6.dp))
-                    Text(modifier = Modifier.align(Alignment.End),
-                        text = "Forgot Password?",
-                        color = OrangePrimary,
-                        style = Typography.bodyMedium)
                     Spacer(Modifier.height(30.dp))
                     Button(
-                    modifier = Modifier.width(400.dp).height(50.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = OrangePrimary
-                    ),
-                    onClick = {
-                        viewModel.signIn(email, password)
-                    },
-                        enabled = signInState !is Resource.Loading
-                ) {
-                        if(signInState is Resource.Loading){
+                        modifier = Modifier
+                            .width(400.dp)
+                            .height(50.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = OrangePrimary
+                        ),
+                        onClick = {
+                            viewModel.signUp(email, password, displayName)
+                        },
+                        enabled = signUpState !is Resource.Loading
+                    ) {
+                        if(signUpState is Resource.Loading){
                             CircularProgressIndicator(
                                 modifier = Modifier.height(20.dp),
                                 color = Color.White
@@ -150,9 +167,9 @@ fun LoginScreen(
                             Text(text = "Let's play")
                         }
                     }
-                    if(signInState is Resource.Error){
+                    if(signUpState is Resource.Error){
                         Text(
-                            text = (signInState as Resource.Error).message,
+                            text = (signUpState as Resource.Error).message,
                             color = Color.Red,
                             style = Typography.bodySmall
                         )
@@ -160,7 +177,8 @@ fun LoginScreen(
                     }
                     Spacer(Modifier.height(20.dp))
                     Row(
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
                             .padding(vertical = 16.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -190,11 +208,11 @@ fun LoginScreen(
             }
         }
     }
-
 }
 
 @Preview(showSystemUi = true)
 @Composable
-private fun LoginScreenPreview() {
-    LoginScreen(navController = rememberNavController())
+private fun RegisterScreenPrev() {
+    RegisterScreen(navController = rememberNavController())
 }
+

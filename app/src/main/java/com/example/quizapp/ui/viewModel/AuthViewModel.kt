@@ -6,6 +6,8 @@ import com.example.quizapp.data.model.User
 import com.example.quizapp.data.repository.AuthRepository
 import com.example.quizapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,17 +18,26 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ): ViewModel(){
-    private val _signInState = MutableStateFlow<Resource<User>>(Resource.Loading)
+    private val _signInState = MutableStateFlow<Resource<User>>(Resource.Idle)
     val signInState: StateFlow<Resource<User>> = _signInState.asStateFlow()
 
-    private val _signUpState = MutableStateFlow<Resource<User>>(Resource.Loading)
+    private val _signUpState = MutableStateFlow<Resource<User>>(Resource.Idle)
     val signUpState: StateFlow<Resource<User>> = _signUpState.asStateFlow()
+
+    private val _currentUser = MutableStateFlow<User?>(null)
+    val currentUser = _currentUser.asStateFlow()
 
     fun signIn(email: String, password: String){
         viewModelScope.launch {
             _signInState.value = Resource.Loading
-            _signInState.value = authRepository.signIn(email, password)
+            val result = authRepository.signIn(email,password)
+            _signInState.value = result
+
+            if(result is Resource.Success){
+                _currentUser.value = result.data
+            }
         }
+
     }
 
     fun signUp(email: String, password: String, displayName: String){
@@ -44,5 +55,9 @@ class AuthViewModel @Inject constructor(
 
     suspend fun isLoggedIn(): Boolean{
         return authRepository.isLoggedIn()
+    }
+
+    suspend fun getCurrentUser(): User?{
+        return authRepository.getCurrentUser()
     }
 }

@@ -48,6 +48,16 @@ class AuthDataSource @Inject constructor(
         return auth.currentUser?.uid
     }
 
+    suspend fun getCurrentUser(): User?{
+        val uid = auth.currentUser?.uid ?: return null
+
+        return try{
+            getUserFromFirestore(uid)
+        }catch (e: Exception){
+            null
+        }
+    }
+
     private suspend fun getUserFromFirestore(uid: String): User{
         val doc = firestore.collection("users")
             .document(uid)
