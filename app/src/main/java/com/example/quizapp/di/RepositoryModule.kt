@@ -1,9 +1,11 @@
 package com.example.quizapp.di
 
 import com.example.quizapp.data.repository.AuthRepository
+import com.example.quizapp.data.repository.QuestionRepository
 import com.example.quizapp.data.repository.QuizRepository
 import com.example.quizapp.data.repository.UserRepository
 import com.example.quizapp.data.repository.impl.AuthRepositoryImpl
+import com.example.quizapp.data.repository.impl.QuestionRepositoryImpl
 import com.example.quizapp.data.repository.impl.QuizRepositoryImpl
 import com.example.quizapp.data.repository.impl.UserRepositoryImpl
 import dagger.Binds
@@ -36,6 +38,6 @@ abstract class RepositoryModule{
     @Binds
     @Singleton
     abstract fun bindQuestionRepoeitory(
-        questionRepo
-    )
+        questionRepositoryImpl: QuestionRepositoryImpl
+    ): QuestionRepository
 }
