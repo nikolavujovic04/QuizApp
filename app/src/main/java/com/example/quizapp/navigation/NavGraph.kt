@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.quizapp.ui.screens.auth.LoginScreen
 import com.example.quizapp.ui.screens.auth.RegisterScreen
+import com.example.quizapp.ui.screens.category.CategoryScreen
 import com.example.quizapp.ui.screens.home.HomeScreen
 import com.example.quizapp.ui.screens.splash.SplashScreen
 
@@ -26,6 +27,9 @@ fun NavGraph(navController: NavHostController) {
         }
         composable(Screen.Home.route){
             HomeScreen(navController = navController)
+        }
+        composable(Screen.Categories.route){
+            CategoryScreen()
         }
     }
 }
