@@ -29,7 +29,13 @@ abstract class RepositoryModule{
 
     @Binds
     @Singleton
-    abstract fun bidQuizRepository(
+    abstract fun bindQuizRepository(
         quizRepositoryImpl: QuizRepositoryImpl
     ): QuizRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindQuestionRepoeitory(
+        questionRepo
+    )
 }
