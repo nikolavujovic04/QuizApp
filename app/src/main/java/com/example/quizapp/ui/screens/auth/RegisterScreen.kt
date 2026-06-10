@@ -30,7 +30,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,8 +41,10 @@ import com.example.quizapp.ui.screens.auth.components.EmailComponent
 import com.example.quizapp.ui.screens.auth.components.GoogleSignInButton
 import com.example.quizapp.ui.screens.auth.components.PasswordComponent
 import com.example.quizapp.ui.theme.Background
-import com.example.quizapp.ui.theme.OrangePrimary
+import com.example.quizapp.ui.theme.Error
+import com.example.quizapp.ui.theme.GreenPrimary
 import com.example.quizapp.ui.theme.Surface
+import com.example.quizapp.ui.theme.TextPrimary
 import com.example.quizapp.ui.theme.TextTertiary
 import com.example.quizapp.ui.theme.Typography
 import com.example.quizapp.ui.viewModel.AuthViewModel
@@ -86,7 +87,7 @@ fun RegisterScreen(
         ) {
             Text(
                 text = "QuizMaster",
-                color = OrangePrimary,
+                color = GreenPrimary,
                 style = Typography.headlineLarge
             )
 
@@ -132,8 +133,8 @@ fun RegisterScreen(
                         ),
 
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = OrangePrimary,
-                            focusedLabelColor = OrangePrimary,
+                            focusedBorderColor = GreenPrimary,
+                            focusedLabelColor = GreenPrimary,
                             unfocusedBorderColor = TextTertiary
                         )
                     )
@@ -151,7 +152,7 @@ fun RegisterScreen(
                             .width(400.dp)
                             .height(50.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = OrangePrimary
+                            containerColor = GreenPrimary
                         ),
                         onClick = {
                             viewModel.signUp(email, password, displayName)
@@ -161,16 +162,16 @@ fun RegisterScreen(
                         if(signUpState is Resource.Loading){
                             CircularProgressIndicator(
                                 modifier = Modifier.height(20.dp),
-                                color = Color.White
+                                color = TextPrimary
                             )
                         }else{
-                            Text(text = "Let's play")
+                            Text(text = "Let's play", color = TextPrimary)
                         }
                     }
                     if(signUpState is Resource.Error){
                         Text(
                             text = (signUpState as Resource.Error).message,
-                            color = Color.Red,
+                            color = Error,
                             style = Typography.bodySmall
                         )
 

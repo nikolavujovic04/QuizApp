@@ -8,12 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.quizapp.navigation.Screen
 import com.example.quizapp.ui.theme.Background
+import com.example.quizapp.ui.theme.GreenPrimary
 import com.example.quizapp.ui.viewModel.AuthViewModel
 
 @Composable
@@ -40,7 +40,7 @@ fun SplashScreen(
             .background(color = Background),
         contentAlignment = Alignment.Center
     ){
-        CircularProgressIndicator()
+        CircularProgressIndicator(color = GreenPrimary)
     }
 }
 

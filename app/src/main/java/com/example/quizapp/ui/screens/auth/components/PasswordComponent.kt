@@ -14,7 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.quizapp.ui.theme.OrangePrimary
+import com.example.quizapp.ui.theme.GreenPrimary
 import com.example.quizapp.ui.theme.TextTertiary
 
 @Composable
@@ -35,8 +35,8 @@ fun PasswordComponent(
         ),
 
         colors = OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = OrangePrimary,
-            focusedLabelColor = OrangePrimary,
+            focusedBorderColor = GreenPrimary,
+            focusedLabelColor = GreenPrimary,
             unfocusedBorderColor = TextTertiary
         )
     )

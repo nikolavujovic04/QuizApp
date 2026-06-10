@@ -2,32 +2,37 @@ package com.example.quizapp.ui.theme
 import androidx.compose.ui.graphics.Color
 
 // Primary
-val OrangePrimary = Color(0xFFFF8A00)
-val OrangeDark = Color(0xFF9A4F00)
-val OrangeLight = Color(0xFFFFB55C)
+val GreenPrimary = Color(0xFF00C896)      // smaragdno zelena
+val GreenDark = Color(0xFF00956E)         // tamnija zelena
+val GreenLight = Color(0xFF33D4A8)        // svetlija zelena
 
 // Backgrounds
-val Background = Color(0xFFF7F3F0)
-val Surface = Color(0xFFFFFFFF)
-val SurfaceVariant = Color(0xFFF3EAE4)
+val Background = Color(0xFF2D333B)        // tamna kao GitHub
+val Surface = Color(0xFF161B22)           // malo svetlija
+val SurfaceVariant = Color(0xFF21262D)    // jos malo svetlija
 
 // Text
-val TextPrimary = Color(0xFF2B1E19)
-val TextSecondary = Color(0xFF7A6A62)
-val TextTertiary = Color(0xFFB0A39D)
+val TextPrimary = Color(0xFFE6EDF3)       // skoro bela
+val TextSecondary = Color(0xFFC9D1D9)     // svetlo siva
+val TextTertiary = Color(0xFF8B949E)      // siva
+
+// Accent
+val AccentBlue = Color(0xFF58A6FF)        // plava kao kod u editoru
+val AccentOrange = Color(0xFFF0883E)      // narandžasta za highlight
 
 // Status
-val Success = Color(0xFF4CAF50)
-val Warning = Color(0xFFFFC107)
-val Error = Color(0xFFE53935)
+val Success = Color(0xFF3FB950)           // zelena
+val Warning = Color(0xFFD29922)           // žuta
+val Error = Color(0xFFF85149)             // crvena
 
 // Category Colors
-val ScienceBlue = Color(0xFF1DA1F2)
-val GeographyBlue = Color(0xFF1EA0E6)
-val HistoryYellow = Color(0xFFF6C453)
-val SportsGreen = Color(0xFFB9D8B8)
-val MoviesPink = Color(0xFFF2D7D7)
-val MusicBeige = Color(0xFFE8D9D0)
+val PythonColor = Color(0xFF3572A5)       // Python plava
+val JavaScriptColor = Color(0xFFF7DF1E)   // JS žuta
+val KotlinColor = Color(0xFF7F52FF)       // Kotlin ljubičasta
+val AlgorithmsColor = Color(0xFF00C896)   // zelena
+val WebColor = Color(0xFF58A6FF)          // plava
+val DatabaseColor = Color(0xFFF0883E)     // narandžasta
+val GitColor = Color(0xFFF05033)          // Git crvena
 
 // Borders
-val BorderColor = Color(0xFFE6D5CB)
+val BorderColor = Color(0xFF30363D)       // tamna bordura

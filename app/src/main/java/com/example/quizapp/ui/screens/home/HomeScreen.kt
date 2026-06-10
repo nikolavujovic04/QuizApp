@@ -26,8 +26,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.quizapp.ui.theme.Background
-import com.example.quizapp.ui.theme.OrangePrimary
-import com.example.quizapp.ui.theme.SurfaceVariant
+import com.example.quizapp.ui.theme.GreenPrimary
+import com.example.quizapp.ui.theme.Surface
+import com.example.quizapp.ui.theme.TextPrimary
+import com.example.quizapp.ui.theme.TextSecondary
 import com.example.quizapp.ui.theme.TextTertiary
 import com.example.quizapp.ui.theme.Typography
 import com.example.quizapp.ui.viewModel.HomeViewModel
@@ -56,11 +58,13 @@ fun HomeScreen(
             .fillMaxSize()
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(start = 20.dp, top = 40.dp, end = 20.dp)
         ) {
             Text(
                 text = "Ready to play ${displayName}",
+                color = TextPrimary,
                 style = Typography.headlineMedium
             )
             Text(
@@ -73,11 +77,12 @@ fun HomeScreen(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(size = 24.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = OrangePrimary
+                    containerColor = GreenPrimary
                 )
             ) {
                 Column(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .padding(16.dp)
                 ) {
                     Text(
@@ -98,7 +103,7 @@ fun HomeScreen(
                     ) {
                         Text(
                             text = "+500 XP Points",
-                            color = SurfaceVariant,
+                            color = TextSecondary,
                             style = Typography.bodyMedium
                         )
                         Spacer(Modifier.weight(1f))
@@ -108,7 +113,7 @@ fun HomeScreen(
                                 .height(34.dp),
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = Color.White,
-                                contentColor = OrangePrimary
+                                contentColor = GreenPrimary
                             ),
                             onClick = {}
                         ) {
@@ -123,8 +128,64 @@ fun HomeScreen(
             Spacer(Modifier.height(30.dp))
             Text(
                 text = "Last played",
+                color = TextPrimary,
                 style = Typography.bodyLarge
             )
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(size = 24.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = Surface
+                )
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    Row(
+
+                    ) { }
+                    Text(
+                        text = "DAILY CHALLENGE",
+                        color = TextSecondary,
+                        style = Typography.bodyLarge
+                    )
+                    Spacer(Modifier.height(10.dp))
+                    Text(
+                        text = "Science & Space Trivia",
+                        color = TextPrimary,
+                        style = Typography.headlineMedium
+                    )
+                    Spacer(Modifier.height(16.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "+500 XP Points",
+                            color = TextSecondary,
+                            style = Typography.bodyMedium
+                        )
+                        Spacer(Modifier.weight(1f))
+                        Button(
+                            modifier = Modifier
+                                .padding(6.dp)
+                                .height(34.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = GreenPrimary,
+                                contentColor = TextPrimary
+                            ),
+                            onClick = {}
+                        ) {
+                            Text(
+                                text = "Play now"
+                            )
+                        }
+                    }
+                }
+
+            }
         }
     }
 

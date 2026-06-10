@@ -17,7 +17,7 @@ fun DocumentSnapshot.toQuestion(): Question?{
         id = id,
         quizId = getString("quizId")?: "",
         text = getString("text")?: "",
-        options = getString("options") ?: "",
+        //options = getString("options") ?: "",
         correctIndex = getLong("correctIndex")?.toInt() ?: 0,
         points = getLong("points")?.toInt() ?: 0,
     )

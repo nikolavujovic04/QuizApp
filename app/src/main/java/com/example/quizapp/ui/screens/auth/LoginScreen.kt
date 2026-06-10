@@ -27,19 +27,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.quizapp.data.repository.AuthRepository
 import com.example.quizapp.navigation.Screen
 import com.example.quizapp.ui.screens.auth.components.EmailComponent
 import com.example.quizapp.ui.screens.auth.components.GoogleSignInButton
 import com.example.quizapp.ui.screens.auth.components.PasswordComponent
 import com.example.quizapp.ui.theme.Background
-import com.example.quizapp.ui.theme.OrangePrimary
+import com.example.quizapp.ui.theme.Error
+import com.example.quizapp.ui.theme.GreenPrimary
 import com.example.quizapp.ui.theme.Surface
+import com.example.quizapp.ui.theme.TextPrimary
 import com.example.quizapp.ui.theme.TextTertiary
 import com.example.quizapp.ui.theme.Typography
 import com.example.quizapp.ui.viewModel.AuthViewModel
@@ -81,7 +83,7 @@ fun LoginScreen(
         ) {
             Text(
                 text = "QuizMaster",
-                color = OrangePrimary,
+                color = GreenPrimary,
                 style = Typography.headlineLarge
             )
 
@@ -106,7 +108,7 @@ fun LoginScreen(
                     containerColor = Surface
                 ),
 
-            ) {
+                ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -124,32 +126,32 @@ fun LoginScreen(
                     Spacer(Modifier.height(6.dp))
                     Text(modifier = Modifier.align(Alignment.End),
                         text = "Forgot Password?",
-                        color = OrangePrimary,
+                        color = GreenPrimary,
                         style = Typography.bodyMedium)
                     Spacer(Modifier.height(30.dp))
                     Button(
-                    modifier = Modifier.width(400.dp).height(50.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = OrangePrimary
-                    ),
-                    onClick = {
-                        viewModel.signIn(email, password)
-                    },
+                        modifier = Modifier.width(400.dp).height(50.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = GreenPrimary
+                        ),
+                        onClick = {
+                            viewModel.signIn(email, password)
+                        },
                         enabled = signInState !is Resource.Loading
-                ) {
+                    ) {
                         if(signInState is Resource.Loading){
                             CircularProgressIndicator(
                                 modifier = Modifier.height(20.dp),
-                                color = Color.White
+                                color = TextPrimary
                             )
                         }else{
-                            Text(text = "Let's play")
+                            Text(text = "Let's play", color = TextPrimary)
                         }
                     }
                     if(signInState is Resource.Error){
                         Text(
                             text = (signInState as Resource.Error).message,
-                            color = Color.Red,
+                            color = Error,
                             style = Typography.bodySmall
                         )
 
