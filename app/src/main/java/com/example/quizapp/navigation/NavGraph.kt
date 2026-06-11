@@ -1,5 +1,6 @@
 package com.example.quizapp.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -14,7 +15,9 @@ import com.example.quizapp.ui.screens.quiz.QuizScreen
 import com.example.quizapp.ui.screens.splash.SplashScreen
 
 @Composable
-fun NavGraph(navController: NavHostController) {
+fun NavGraph(
+    navController: NavHostController,
+    paddingValues: PaddingValues) {
     NavHost(
         navController = navController,
         startDestination = Screen.Splash.route
@@ -30,6 +33,9 @@ fun NavGraph(navController: NavHostController) {
         }
         composable(Screen.Home.route){
             HomeScreen(navController = navController)
+        }
+        composable(Screen.Leagues.route){
+
         }
         composable(Screen.Categories.route){
             CategoryScreen(navController = navController)
