@@ -31,9 +31,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.quizapp.data.local.Categories
+import com.example.quizapp.navigation.Screen
 import com.example.quizapp.ui.screens.category.components.CategoryCard
 import com.example.quizapp.ui.theme.Background
 import com.example.quizapp.ui.theme.GreenPrimary
@@ -44,7 +48,9 @@ import com.example.quizapp.ui.theme.TextTertiary
 import com.example.quizapp.ui.theme.Typography
 
 @Composable
-fun CategoryScreen(modifier: Modifier = Modifier) {
+fun CategoryScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController) {
     var searchQuery by remember { mutableStateOf("") }
     val categories = Categories.list
     val featured = categories.first()
@@ -112,7 +118,10 @@ fun CategoryScreen(modifier: Modifier = Modifier) {
                 color = featured.color,
                 categoryName = featured.name,
                 description = featured.description,
-                isFeatured = true
+                isFeatured = true,
+                onClick = {
+                    navController.navigate(Screen.Quiz.createRoute(featured.id))
+                }
             )
         }
 
@@ -120,7 +129,10 @@ fun CategoryScreen(modifier: Modifier = Modifier) {
             CategoryCard(
                 color = category.color,
                 categoryName = category.name,
-                description = category.description
+                description = category.description,
+                onClick = {
+                    navController.navigate(Screen.Quiz.createRoute(category.id))
+                }
             )
         }
 
@@ -177,8 +189,8 @@ fun CategoryScreen(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showSystemUi = true)
+@Preview(heightDp = 1100)
 @Composable
 private fun CategoryScreenPrev() {
-    CategoryScreen()
+    CategoryScreen(navController = rememberNavController())
 }

@@ -33,7 +33,7 @@ fun CategoryCard(
     color: Color,
     categoryName: String,
     description: String,
-    isFeatured: Boolean = false,
+    isFeatured: Boolean = true,
     onClick: () -> Unit = {}
 ) {
     if (isFeatured) {
@@ -44,7 +44,7 @@ fun CategoryCard(
             shape = RoundedCornerShape(size = 24.dp),
             colors = CardDefaults.cardColors(
                 containerColor = color
-            )
+            ),
         ) {
             Column(
                 modifier = Modifier
