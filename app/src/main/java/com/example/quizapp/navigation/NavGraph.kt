@@ -11,6 +11,7 @@ import com.example.quizapp.ui.screens.auth.LoginScreen
 import com.example.quizapp.ui.screens.auth.RegisterScreen
 import com.example.quizapp.ui.screens.category.CategoryScreen
 import com.example.quizapp.ui.screens.home.HomeScreen
+import com.example.quizapp.ui.screens.profile.ProfileScreen
 import com.example.quizapp.ui.screens.quiz.QuizScreen
 import com.example.quizapp.ui.screens.splash.SplashScreen
 
@@ -48,6 +49,9 @@ fun NavGraph(
         ) { backStackEntry ->
             val category = backStackEntry.arguments?.getString("category") ?: ""
             QuizScreen(navController = navController, category = category)
+        }
+        composable(Screen.Profile.route){
+            ProfileScreen(navController = navController)
         }
     }
 }
