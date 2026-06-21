@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.quizapp.data.model.Question
 import com.example.quizapp.data.repository.QuestionRepository
+import com.example.quizapp.data.repository.UserRepository
 import com.example.quizapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class QuizViewModel @Inject constructor(
-    private val questionRepository: QuestionRepository
+    private val questionRepository: QuestionRepository,
+    private val userRepository: UserRepository
 ): ViewModel(){
     private val _questions = MutableStateFlow<Resource<List<Question>>>(Resource.Idle)
     val questions: StateFlow<Resource<List<Question>>> = _questions.asStateFlow()
@@ -106,6 +108,12 @@ class QuizViewModel @Inject constructor(
                 _isAnswered.value = true
                 nextQuestion()
             }
+        }
+    }
+
+    private fun finishedQuiz(){
+        if(_isQuizFinished.value){
+            userRepository.
         }
     }
 

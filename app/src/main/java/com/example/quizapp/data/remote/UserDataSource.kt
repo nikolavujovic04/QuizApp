@@ -1,5 +1,6 @@
 package com.example.quizapp.data.remote
 
+import com.example.quizapp.data.mapper.toMap
 import com.example.quizapp.data.mapper.toUser
 import com.example.quizapp.data.model.User
 import com.google.firebase.firestore.FirebaseFirestore
@@ -15,5 +16,12 @@ class UserDataSource @Inject constructor(
             .get()
             .await()
         return if (doc.exists()) doc.toUser() else null
+    }
+
+    suspend fun updateUser(user: User){
+        val doc = firestore.collection("users")
+            .document(user.id)
+            .update(user.toMap())
+            .await()
     }
 }
