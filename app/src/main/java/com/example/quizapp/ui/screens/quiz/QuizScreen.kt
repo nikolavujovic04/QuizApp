@@ -75,6 +75,7 @@ fun QuizScreen(
     val totalPoints by viewModel.totalPoints.collectAsState()
     val timeLeft by viewModel.timeLeft.collectAsState()
     val isAnswered by viewModel.isAnswered.collectAsState()
+    val isQuizFinished by viewModel.isQuizFinished.collectAsState()
 
     Box(
         modifier = modifier
@@ -237,6 +238,9 @@ fun QuizScreen(
                                     tint = Color.White
                                 )
                             }
+                        }
+                        if(isQuizFinished){
+                            //TODO: Implementirati sta se desava nakon sto se quiz zavrsi
                         }
                     }
                 }

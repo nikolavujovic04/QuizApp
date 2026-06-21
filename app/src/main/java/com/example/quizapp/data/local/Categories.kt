@@ -6,7 +6,7 @@ import com.example.quizapp.ui.theme.*
 object Categories {
     val list = listOf(
         Category(
-            id = "kotlin",
+            id = "Kotlin",
             name = "Kotlin",
             description = "Android & Kotlin fundamentals",
             color = KotlinColor,
