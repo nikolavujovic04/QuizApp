@@ -40,6 +40,9 @@ class QuizViewModel @Inject constructor(
     private val _correctAnswers = MutableStateFlow(0)
     val correctAnswers: StateFlow<Int> = _correctAnswers.asStateFlow()
 
+    private val _currentStreak = MutableStateFlow(0)
+    val currentStreak: StateFlow<Int> = _currentStreak.asStateFlow()
+
     // Timer — sekundi po pitanju
     private val _timeLeft = MutableStateFlow(30)
     val timeLeft: StateFlow<Int> = _timeLeft.asStateFlow()
@@ -127,6 +130,7 @@ class QuizViewModel @Inject constructor(
                     totalPoints = user.totalPoints + _totalPoints.value,
                     gamesPlayed = user.gamesPlayed + 1,
                     correctAnswers = user.correctAnswers + _correctAnswers.value,
+                    currentStreak = user.currentStreak + _currentStreak.value,
                     totalAnswers = user.totalAnswers + (_questions.value as? Resource.Success)?.data?.size!!
                 )
 

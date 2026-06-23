@@ -43,6 +43,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.quizapp.data.model.Question
+import com.example.quizapp.navigation.Screen
 import com.example.quizapp.ui.theme.AccentOrange
 import com.example.quizapp.ui.theme.Background
 import com.example.quizapp.ui.theme.BorderColor
@@ -73,6 +74,7 @@ fun QuizScreen(
     val currentQuestionIndex by viewModel.currentQuestionIndex.collectAsState()
     val selectedAnswerIndex by viewModel.selectedAnswerIndex.collectAsState()
     val totalPoints by viewModel.totalPoints.collectAsState()
+    val correctAnswers by viewModel.correctAnswers.collectAsState()
     val timeLeft by viewModel.timeLeft.collectAsState()
     val isAnswered by viewModel.isAnswered.collectAsState()
     val isQuizFinished by viewModel.isQuizFinished.collectAsState()
@@ -239,11 +241,18 @@ fun QuizScreen(
                                 )
                             }
                         }
-                        if(isQuizFinished){
-                            //TODO: Implementirati sta se desava nakon sto se quiz zavrsi
-                        }
                     }
                 }
+            }
+        }
+    }
+
+    LaunchedEffect(isQuizFinished) {
+        if(isQuizFinished){
+            navController.navigate(
+                Screen.Result.createRoot(totalPoints, correctAnswers)
+            ){
+                popUpTo(Screen.Quiz.route){ inclusive = true}
             }
         }
     }

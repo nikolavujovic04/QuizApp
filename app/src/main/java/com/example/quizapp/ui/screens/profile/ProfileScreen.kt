@@ -59,6 +59,9 @@ import com.example.quizapp.ui.theme.Success
 import com.example.quizapp.ui.viewModel.ProfileViewModel
 import com.example.quizapp.utils.Resource
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -264,7 +267,10 @@ private fun StreakCard(gamesPlayed: Int) {
             }
             Spacer(Modifier.height(16.dp))
             val days = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
-            val activeDays = (gamesPlayed % 7).coerceAtLeast(if (gamesPlayed > 0) 1 else 0)
+            val calendar = Calendar.getInstance()
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+            val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)
+            val activeDays =
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween

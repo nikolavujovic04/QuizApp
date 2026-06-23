@@ -13,6 +13,7 @@ import com.example.quizapp.ui.screens.category.CategoryScreen
 import com.example.quizapp.ui.screens.home.HomeScreen
 import com.example.quizapp.ui.screens.profile.ProfileScreen
 import com.example.quizapp.ui.screens.quiz.QuizScreen
+import com.example.quizapp.ui.screens.result.ResultScreen
 import com.example.quizapp.ui.screens.splash.SplashScreen
 
 @Composable
@@ -52,6 +53,21 @@ fun NavGraph(
         }
         composable(Screen.Profile.route){
             ProfileScreen(navController = navController)
+        }
+        composable(
+            route = Screen.Result.route,
+            arguments =  listOf(
+                navArgument("points") { type = NavType.IntType},
+                navArgument("correct") { type = NavType.IntType}
+            )){ backStackEntry ->
+            val points = backStackEntry.arguments?.getInt("points") ?: 0
+            val correct = backStackEntry.arguments?.getInt("correct") ?: 0
+
+            ResultScreen(
+                navController = navController,
+                totalPoints = points,
+                correctAnswers = correct
+            )
         }
     }
 }

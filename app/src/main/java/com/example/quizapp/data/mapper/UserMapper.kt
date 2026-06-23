@@ -11,6 +11,7 @@ fun User.toMap(): Map<String, Any> = mapOf(
     "gamesPlayed" to gamesPlayed,
     "correctAnswers" to correctAnswers,
     "totalAnswers" to totalAnswers,
+    "currentStreak" to currentStreak,
     "createdAt" to createdAt
 )
 
@@ -24,6 +25,7 @@ fun DocumentSnapshot.toUser(): User{
         gamesPlayed = getLong("gamesPlayed")?.toInt() ?: 0,
         correctAnswers = getLong("correctAnswers")?.toInt() ?: 0,
         totalAnswers = getLong("totalAnswers")?.toInt() ?: 0,
+        currentStreak = getLong("currentStreak")?.toInt()?: 0,
         createdAt = getLong("createdAt") ?: 0L
     )
 }

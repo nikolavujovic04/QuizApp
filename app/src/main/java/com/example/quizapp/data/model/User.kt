@@ -10,6 +10,7 @@ data class User(
     val gamesPlayed: Int = 0,
     val correctAnswers: Int = 0,
     val totalAnswers: Int = 0,
+    val currentStreak: Int = 0,
     val createdAt: Long = 0L
 ){
     val accuracyPercentage: Int

@@ -12,4 +12,7 @@ sealed class Screen(val route: String){
     object Quiz: Screen("quiz/{category}"){
         fun createRoute(category: String) = "quiz/$category"
     }
+    object Result: Screen("result/{points}/{correct}"){
+        fun createRoot(points: Int, correct: Int) = "result/$points/$correct"
+    }
 }
