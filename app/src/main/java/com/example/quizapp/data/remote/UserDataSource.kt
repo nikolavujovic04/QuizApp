@@ -21,7 +21,7 @@ class UserDataSource @Inject constructor(
     suspend fun updateUser(user: User){
         val doc = firestore.collection("users")
             .document(user.id)
-            .update(user.toMap())
+            .set(user.toMap())
             .await()
     }
 }

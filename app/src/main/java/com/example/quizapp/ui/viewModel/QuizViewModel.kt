@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.quizapp.data.model.Question
+import com.example.quizapp.data.model.User
+import com.example.quizapp.data.repository.AuthRepository
 import com.example.quizapp.data.repository.QuestionRepository
 import com.example.quizapp.data.repository.UserRepository
 import com.example.quizapp.utils.Resource
@@ -19,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class QuizViewModel @Inject constructor(
     private val questionRepository: QuestionRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val authRepository: AuthRepository
 ): ViewModel(){
     private val _questions = MutableStateFlow<Resource<List<Question>>>(Resource.Idle)
     val questions: StateFlow<Resource<List<Question>>> = _questions.asStateFlow()
@@ -94,6 +97,7 @@ class QuizViewModel @Inject constructor(
             startTimer()
         }else{
             _isQuizFinished.value = true
+            finishedQuiz()
         }
     }
     private fun startTimer(){
@@ -112,8 +116,22 @@ class QuizViewModel @Inject constructor(
     }
 
     private fun finishedQuiz(){
-        if(_isQuizFinished.value){
-            userRepository.
+        viewModelScope.launch {
+            val userId = authRepository.getCurrentUserId() ?: return@launch
+            val userResult = userRepository.getUser(userId)
+
+            if(userResult is Resource.Success){
+                val user = userResult.data
+
+                val updateUser = user.copy(
+                    totalPoints = user.totalPoints + _totalPoints.value,
+                    gamesPlayed = user.gamesPlayed + 1,
+                    correctAnswers = user.correctAnswers + _correctAnswers.value,
+                    totalAnswers = user.totalAnswers + (_questions.value as? Resource.Success)?.data?.size!!
+                )
+
+                userRepository.updateUser(updateUser)
+            }
         }
     }
 

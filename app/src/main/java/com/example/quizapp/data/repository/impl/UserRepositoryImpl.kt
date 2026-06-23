@@ -21,4 +21,13 @@ class UserRepositoryImpl @Inject constructor(
             Resource.Error(e.message?: "Greska")
         }
     }
+
+    override suspend fun updateUser(user: User): Resource<Unit> {
+        return try {
+            userDataSource.updateUser(user)
+            Resource.Success(Unit)
+        } catch (e: Exception) {
+            Resource.Error(e.message ?: "Greska")
+        }
+    }
 }
