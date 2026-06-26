@@ -125,13 +125,23 @@ class QuizViewModel @Inject constructor(
 
             if(userResult is Resource.Success){
                 val user = userResult.data
+                val lastPlayed = user.lastPlayedAt
+                val now = System.currentTimeMillis()
+                val dayBetween = (now-lastPlayed) / (24*60*60*1000)
+                val currentStreak = when{
+                    user.lastPlayedAt == 0L -> 1
+                    dayBetween < 1 -> user.currentStreak
+                    dayBetween == 1L -> user.currentStreak + 1
+                    else -> 1
+                }
 
                 val updateUser = user.copy(
                     totalPoints = user.totalPoints + _totalPoints.value,
                     gamesPlayed = user.gamesPlayed + 1,
                     correctAnswers = user.correctAnswers + _correctAnswers.value,
-                    currentStreak = user.currentStreak + _currentStreak.value,
-                    totalAnswers = user.totalAnswers + (_questions.value as? Resource.Success)?.data?.size!!
+                    currentStreak = currentStreak,
+                    lastPlayedAt = now,
+                    totalAnswers = user.totalAnswers + ((_questions.value as? Resource.Success)?.data?.size ?: 0)
                 )
 
                 userRepository.updateUser(updateUser)

@@ -30,6 +30,9 @@ class ProfileViewModel @Inject constructor(
     private val _totalPoints = MutableStateFlow<Int?>(0)
     val totalPoints: StateFlow<Int?> = _totalPoints.asStateFlow()
 
+    private val _currentStreak = MutableStateFlow<Int?>(0)
+    val currentStreak: StateFlow<Int?> = _currentStreak.asStateFlow()
+
     init {
         viewModelScope.launch {
             val userId = authRepository.getCurrentUserId()
@@ -46,6 +49,7 @@ class ProfileViewModel @Inject constructor(
             _averageScore.value = user?.accuracyPercentage
             _gamesPlayed.value = user?.gamesPlayed ?: 0
             _totalPoints.value = user?.totalPoints ?: 0
+            _currentStreak.value = user?.currentStreak ?: 0
         }
     }
 

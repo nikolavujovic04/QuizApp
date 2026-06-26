@@ -195,7 +195,7 @@ private fun ProfileContent(
         Spacer(Modifier.height(32.dp))
         SectionLabel("Your Streak")
         Spacer(Modifier.height(12.dp))
-        StreakCard(gamesPlayed = user.gamesPlayed)
+        StreakCard(gamesPlayed = user.gamesPlayed, user)
         Spacer(Modifier.height(32.dp))
         SectionLabel("Achievements")
         Spacer(Modifier.height(12.dp))
@@ -235,7 +235,7 @@ private fun AvatarSection(
 }
 
 @Composable
-private fun StreakCard(gamesPlayed: Int) {
+private fun StreakCard(gamesPlayed: Int, user: User) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(size = 20.dp),
@@ -270,13 +270,13 @@ private fun StreakCard(gamesPlayed: Int) {
             val calendar = Calendar.getInstance()
             val day = calendar.get(Calendar.DAY_OF_MONTH)
             val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH)
-            val activeDays =
+            val currentStreak = user.currentStreak
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 days.forEachIndexed { index, day ->
-                    val isActive = index < activeDays
+                    val isActive = index < currentStreak
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Box(
                             modifier = Modifier

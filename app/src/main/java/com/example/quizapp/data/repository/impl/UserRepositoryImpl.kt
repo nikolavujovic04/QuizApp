@@ -30,4 +30,15 @@ class UserRepositoryImpl @Inject constructor(
             Resource.Error(e.message ?: "Greska")
         }
     }
+
+    override suspend fun getAllUsers(): Resource<List<User>> {
+        return try{
+            val users = userDataSource.getAllUsers()
+            Resource.Success(users)
+        } catch(e: Exception){
+            Resource.Error(e.message ?: "Greska")
+        }
+    }
+
+
 }

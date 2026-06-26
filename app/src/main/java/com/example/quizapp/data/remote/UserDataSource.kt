@@ -4,6 +4,7 @@ import com.example.quizapp.data.mapper.toMap
 import com.example.quizapp.data.mapper.toUser
 import com.example.quizapp.data.model.User
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -23,5 +24,15 @@ class UserDataSource @Inject constructor(
             .document(user.id)
             .set(user.toMap())
             .await()
+    }
+
+    suspend fun getAllUsers(): List<User>{
+        return firestore.collection("users")
+            .orderBy("totalPoints", Query.Direction.DESCENDING)
+            .limit(10)
+            .get()
+            .await()
+            .documents
+            .mapNotNull { it.toUser() }
     }
 }
