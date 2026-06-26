@@ -1,7 +1,12 @@
 package com.example.quizapp.navigation
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -11,10 +16,12 @@ import com.example.quizapp.ui.screens.auth.LoginScreen
 import com.example.quizapp.ui.screens.auth.RegisterScreen
 import com.example.quizapp.ui.screens.category.CategoryScreen
 import com.example.quizapp.ui.screens.home.HomeScreen
+import com.example.quizapp.ui.screens.leadebord.LeadebordScreen
 import com.example.quizapp.ui.screens.profile.ProfileScreen
 import com.example.quizapp.ui.screens.quiz.QuizScreen
 import com.example.quizapp.ui.screens.result.ResultScreen
 import com.example.quizapp.ui.screens.splash.SplashScreen
+import com.example.quizapp.ui.theme.Background
 
 @Composable
 fun NavGraph(
@@ -36,8 +43,8 @@ fun NavGraph(
         composable(Screen.Home.route){
             HomeScreen(navController = navController)
         }
-        composable(Screen.Leagues.route){
-
+        composable(Screen.Leaderboard.route){
+            LeadebordScreen()
         }
         composable(Screen.Categories.route){
             CategoryScreen(navController = navController)
@@ -54,6 +61,7 @@ fun NavGraph(
         composable(Screen.Profile.route){
             ProfileScreen(navController = navController)
         }
+
         composable(
             route = Screen.Result.route,
             arguments =  listOf(

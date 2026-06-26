@@ -35,7 +35,7 @@ fun BottomNavigationBar(
     val items = listOf(
         BottomNavItem("Home", Screen.Home.route, Icons.Default.Home),
         BottomNavItem("Categories", Screen.Categories.route, Icons.Default.Star),
-        BottomNavItem("Stats", Screen.Stats.route, Icons.Default.Info),
+        BottomNavItem("Leaderboard", Screen.Leaderboard.route, Icons.Default.Info),
         BottomNavItem("Profile", Screen.Profile.route, Icons.Default.Person)
     )
 
