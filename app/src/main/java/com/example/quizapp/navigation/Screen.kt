@@ -15,4 +15,7 @@ sealed class Screen(val route: String){
     object Result: Screen("result/{points}/{correct}"){
         fun createRoot(points: Int, correct: Int) = "result/$points/$correct"
     }
+    object EditProfile: Screen("editprofile/{userId}"){
+        fun createRoute(userId:String) = "editprofile/$userId"
+    }
 }

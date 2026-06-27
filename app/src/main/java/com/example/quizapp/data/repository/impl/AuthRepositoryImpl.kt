@@ -47,8 +47,17 @@ class AuthRepositoryImpl @Inject constructor(
         return authDataSource.getCurrentUserId()
     }
 
-    override suspend fun getCurrentUser(): User? {
-        return authDataSource.getCurrentUser()
+    override suspend fun getCurrentUser(): Resource<User>? {
+        return try{
+            val user = authDataSource.getCurrentUser()
+            if(user != null){
+                Resource.Success(user)
+            }else {
+                Resource.Error("Korisnik nije ulogovan")
+            }
+        }catch(e: Exception){
+            Resource.Error(e.message ?: "Greska")
+        }
     }
 
 

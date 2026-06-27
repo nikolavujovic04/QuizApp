@@ -10,5 +10,5 @@ interface AuthRepository{
     fun isLoggedIn(): Boolean
     suspend fun getCurrentUserId(): String?
 
-    suspend fun getCurrentUser(): User?
+    suspend fun getCurrentUser(): Resource<User>?
 }

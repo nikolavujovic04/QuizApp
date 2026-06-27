@@ -42,6 +42,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.quizapp.data.model.User
+import com.example.quizapp.navigation.Screen
 import com.example.quizapp.ui.theme.AccentBlue
 import com.example.quizapp.ui.theme.AccentOrange
 import com.example.quizapp.ui.theme.Background
@@ -100,7 +101,9 @@ fun ProfileScreen(
             is Resource.Success -> {
                 ProfileContent(
                     user = state.data,
-                    onEditProfile = {},
+                    onEditProfile = {
+                        navController.navigate(Screen.EditProfile.createRoute(state.data.id))
+                    },
                     onChangeAvatar = {}
                 )
             }

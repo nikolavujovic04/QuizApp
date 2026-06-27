@@ -57,7 +57,7 @@ class AuthViewModel @Inject constructor(
         return authRepository.isLoggedIn()
     }
 
-    suspend fun getCurrentUser(): User?{
+    suspend fun getCurrentUser(): Resource<User>?{
         return authRepository.getCurrentUser()
     }
 }

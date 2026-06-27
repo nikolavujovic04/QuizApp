@@ -7,6 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavArgumentBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -17,6 +18,7 @@ import com.example.quizapp.ui.screens.auth.RegisterScreen
 import com.example.quizapp.ui.screens.category.CategoryScreen
 import com.example.quizapp.ui.screens.home.HomeScreen
 import com.example.quizapp.ui.screens.leadebord.LeadebordScreen
+import com.example.quizapp.ui.screens.profile.EditProfileScreen
 import com.example.quizapp.ui.screens.profile.ProfileScreen
 import com.example.quizapp.ui.screens.quiz.QuizScreen
 import com.example.quizapp.ui.screens.result.ResultScreen
@@ -75,6 +77,17 @@ fun NavGraph(
                 navController = navController,
                 totalPoints = points,
                 correctAnswers = correct
+            )
+        }
+        composable(
+            route = Screen.EditProfile.route,
+            arguments = listOf(navArgument("userId"){type = NavType.StringType}),
+        ){ backStackEntry ->
+            val userid = backStackEntry.arguments?.getString("userId") ?: ""
+
+            EditProfileScreen(
+                navController = navController,
+                userId = userid
             )
         }
     }
