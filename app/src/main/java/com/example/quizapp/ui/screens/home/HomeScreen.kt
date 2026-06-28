@@ -1,6 +1,7 @@
 package com.example.quizapp.ui.screens.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -8,7 +9,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -25,6 +31,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.quizapp.data.local.Categories
+import com.example.quizapp.navigation.Screen
+import com.example.quizapp.ui.screens.category.components.CategoryCard
 import com.example.quizapp.ui.theme.Background
 import com.example.quizapp.ui.theme.GreenPrimary
 import com.example.quizapp.ui.theme.Surface
@@ -43,6 +52,7 @@ fun HomeScreen(
     ) {
     val userState by viewModel.userState.collectAsState()
     var displayName: String = ""
+    val categories = Categories.list
     when(userState){
         is Resource.Loading -> {}
         is Resource.Success -> {
@@ -186,6 +196,48 @@ fun HomeScreen(
                 }
 
             }
+        }
+        Spacer(Modifier.height(10.dp))
+        Text(
+            text = "Most Featured Quizes",
+            color = Color.White,
+            style = Typography.titleMedium
+        )
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = modifier
+                .background(color = Background)
+                .fillMaxSize(),
+            contentPadding = androidx.compose.foundation.layout.PaddingValues(20.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                CategoryCard(
+                    color = categories.get(1).color,
+                    categoryName = categories.get(1).name,
+                    description = categories.get(1).description,
+                    onClick = {
+                        navController.navigate(Screen.Quiz.createRoute(categories.get(1).id))
+                    }
+                )
+            }
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                CategoryCard(
+                    color = categories.get(2).color,
+                    categoryName = categories.get(2).name,
+                    description = categories.get(2).description,
+                    onClick = {
+                        navController.navigate(Screen.Quiz.createRoute(categories.get(2).id))
+                    }
+                )
+            }
+        }
+        Row(
+            modifier = Modifier.
+                verticalScroll(rememberScrollState())
+        ) {
+
         }
     }
 
