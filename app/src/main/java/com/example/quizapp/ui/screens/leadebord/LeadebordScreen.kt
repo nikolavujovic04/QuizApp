@@ -12,7 +12,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.quizapp.data.model.User
 import com.example.quizapp.ui.screens.leadebord.components.LeadebordCard
 import com.example.quizapp.ui.theme.GreenPrimary
 import com.example.quizapp.ui.viewModel.LeadebordViewModel

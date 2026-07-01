@@ -7,4 +7,5 @@ interface UserRepository {
     suspend fun getUser(uid: String): Resource<User>
     suspend fun updateUser(user: User): Resource<Unit>
     suspend fun getAllUsers(): Resource<List<User>>
+    suspend fun getBestUser(): Resource<User?>
 }

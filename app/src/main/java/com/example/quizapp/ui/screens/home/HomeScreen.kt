@@ -11,18 +11,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -38,6 +33,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.quizapp.data.local.Categories
 import com.example.quizapp.navigation.Screen
 import com.example.quizapp.ui.screens.category.components.CategoryCard
+import com.example.quizapp.ui.screens.leadebord.components.LeadebordCard
 import com.example.quizapp.ui.theme.Background
 import com.example.quizapp.ui.theme.GreenPrimary
 import com.example.quizapp.ui.theme.Surface
@@ -54,6 +50,7 @@ fun HomeScreen(
     navController: NavHostController,
     viewModel: HomeViewModel = hiltViewModel()
     ) {
+    val bestUser by viewModel.bestUser.collectAsState()
     val userState by viewModel.userState.collectAsState()
     var displayName: String = ""
     val categories = Categories.list
@@ -225,8 +222,27 @@ fun HomeScreen(
                 )
             }
         }
-
-
+        Spacer(Modifier.height(20.dp))
+        when (bestUser) {
+            is Resource.Success -> {
+                Column(
+                    modifier = Modifier.padding(20.dp)
+                ) {
+                    Text(
+                        text = "The best in Quiz's",
+                        color = Color.White,
+                        style = Typography.titleMedium
+                    )
+                    LeadebordCard(
+                        user = (bestUser as Resource.Success).data,
+                        rank = 1
+                    )
+                }
+            }
+            is Resource.Loading -> CircularProgressIndicator()
+            is Resource.Error -> Text(text = "Greska", color = TextPrimary)
+            else -> {}
+        }
     }
 
 }

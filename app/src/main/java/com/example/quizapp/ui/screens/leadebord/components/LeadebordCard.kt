@@ -1,7 +1,5 @@
 package com.example.quizapp.ui.screens.leadebord.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,7 +23,7 @@ import com.example.quizapp.ui.theme.Typography
 @Composable
 fun LeadebordCard(
     modifier: Modifier = Modifier,
-    user: User,
+    user: User?,
     rank: Int
 ) {
     Card(
@@ -50,18 +48,18 @@ fun LeadebordCard(
             Spacer(Modifier.width(16.dp))
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = user.displayName,
+                    text = user?.displayName ?: "Uknown",
                     color = TextPrimary,
                     style = Typography.bodyLarge
                 )
                 Text(
-                    text = "🔥 ${user.currentStreak} day streak",
+                    text = "🔥 ${user?.currentStreak ?: 0} day streak",
                     color = TextTertiary,
                     style = Typography.bodySmall
                 )
             }
             Text(
-                text = "${user.totalPoints} pts",
+                text = "${user?.totalPoints ?: 0} pts",
                 color = GreenPrimary,
                 style = Typography.titleMedium
             )

@@ -40,5 +40,14 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getBestUser(): Resource<User?> {
+        return try{
+            val best_user = userDataSource.getBestUser()
+            Resource.Success(best_user)
+        }catch(e: Exception){
+            Resource.Error(e.message ?: "Error")
+        }
+    }
+
 
 }

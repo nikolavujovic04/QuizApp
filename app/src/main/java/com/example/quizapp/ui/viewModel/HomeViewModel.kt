@@ -26,11 +26,12 @@ class HomeViewModel @Inject constructor(
     private val _quizState = MutableStateFlow<Resource<Quiz>>(Resource.Idle)
     val quizState: StateFlow<Resource<Quiz>> = _quizState.asStateFlow()
 
-    private val _bestUser = MutableStateFlow<Resource<User>>(Resource.Idle)
-    val bestUser: StateFlow<Resource<User>> = _bestUser.asStateFlow()
+    private val _bestUser = MutableStateFlow<Resource<User?>>(Resource.Idle)
+    val bestUser: StateFlow<Resource<User?>> = _bestUser.asStateFlow()
 
     init {
         loadCurrentUser()
+        getBestUser()
     }
 
     private fun loadCurrentUser(){
@@ -60,7 +61,8 @@ class HomeViewModel @Inject constructor(
     fun getBestUser(){
         viewModelScope.launch {
             _bestUser.value = Resource.Loading
-            val bestUser = userRepository.
+            val bestUser = userRepository.getBestUser()
+            _bestUser.value = bestUser
         }
     }
 }
