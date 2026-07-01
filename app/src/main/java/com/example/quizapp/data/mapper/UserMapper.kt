@@ -16,7 +16,7 @@ fun User.toMap(): Map<String, Any> = mapOf(
     "createdAt" to createdAt
 )
 
-fun DocumentSnapshot.toUser(): User{
+fun DocumentSnapshot.toUser(): User {
     return User(
         id = id,
         displayName = getString("displayName")?: "",

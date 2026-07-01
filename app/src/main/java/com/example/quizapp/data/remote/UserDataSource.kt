@@ -35,4 +35,13 @@ class UserDataSource @Inject constructor(
             .documents
             .mapNotNull { it.toUser() }
     }
+
+    suspend fun getBestUser(): User? = firestore.collection("users")
+        .orderBy("totalPoints", Query.Direction.DESCENDING)
+        .limit(1)
+        .get()
+        .await()
+        .documents
+        .firstOrNull()
+        ?.toUser()
 }

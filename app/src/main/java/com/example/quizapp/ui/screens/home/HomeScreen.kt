@@ -3,15 +3,19 @@ package com.example.quizapp.ui.screens.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -196,49 +200,33 @@ fun HomeScreen(
                 }
 
             }
+            Spacer(Modifier.height(20.dp))
+            Text(
+                text = "Most Featured Quizes",
+                color = Color.White,
+                style = Typography.titleMedium
+            )
         }
-        Spacer(Modifier.height(10.dp))
-        Text(
-            text = "Most Featured Quizes",
-            color = Color.White,
-            style = Typography.titleMedium
-        )
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            modifier = modifier
-                .background(color = Background)
-                .fillMaxSize(),
-            contentPadding = androidx.compose.foundation.layout.PaddingValues(20.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            item(span = { GridItemSpan(maxLineSpan) }) {
-                CategoryCard(
-                    color = categories.get(1).color,
-                    categoryName = categories.get(1).name,
-                    description = categories.get(1).description,
-                    onClick = {
-                        navController.navigate(Screen.Quiz.createRoute(categories.get(1).id))
-                    }
-                )
-            }
-            item(span = { GridItemSpan(maxLineSpan) }) {
-                CategoryCard(
-                    color = categories.get(2).color,
-                    categoryName = categories.get(2).name,
-                    description = categories.get(2).description,
-                    onClick = {
-                        navController.navigate(Screen.Quiz.createRoute(categories.get(2).id))
-                    }
-                )
-            }
-        }
-        Row(
-            modifier = Modifier.
-                verticalScroll(rememberScrollState())
-        ) {
 
+        LazyRow(
+            modifier = modifier
+                .fillMaxWidth(),
+            contentPadding = PaddingValues(horizontal = 20.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            items(categories.drop(1).take(3)) { category ->
+                CategoryCard(
+                    color = category.color,
+                    categoryName = category.name,
+                    description = category.description,
+                    onClick = {
+                        navController.navigate(Screen.Quiz.createRoute(category.id))
+                    }
+                )
+            }
         }
+
+
     }
 
 }
